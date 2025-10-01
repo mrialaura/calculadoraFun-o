@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Calculadora Avalia SESI</title>
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Calculadora Avalia SESI</h1>
+            <p>Sistema de conversão de parâmetros para notas</p>
+        </div>
+
+        <div class="info-box">
+            <p><strong>Importante:</strong> Parâmetros válidos: 3 a 18 | Notas válidas: 5.0 a 10.0</p>
+        </div>
+
+        <form id="calculatorForm">
+            <div class="form-group">
+                <label for="entrada">Parâmetro de Entrada (3-18)</label>
+                <input type="number" id="entrada" step="1" min="3" max="18" required>
+                <div class="error-message" id="entradaError">O parâmetro deve estar entre 3 e 18</div>
+            </div>
+
+            <div class="form-group">
+                <label for="saida">Nota de Saída (5.0-10.0)</label>
+                <input type="number" id="saida" step="0.1" min="5" max="10" required>
+                <div class="error-message" id="saidaError">A nota deve estar entre 5.0 e 10.0</div>
+            </div>
+
+            <button type="submit" class="btn">Calcular Nota</button>
+        </form>
+
+        <div class="result" id="result">
+            <h3>Resultado do Cálculo</h3>
+            <div class="result-item">
+                <span class="result-label">Nota Final:</span>
+                <span class="result-value highlight" id="notaFinal">-</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Coeficiente A:</span>
+                <span class="result-value" id="valorA">-</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">Coeficiente B:</span>
+                <span class="result-value" id="valorB">-</span>
+            </div>
+        </div>
+    </div>
+
+     <footer>
+        <div class="footer-divider"></div>
+        <p>Desenvolvido por Maria Laura Carezzato </p>
+        <p>&copy; 2025 Calculadora Avalia SESI</p>
+     </footer>
+
+    <script>
+        // Definição de mínimo e máximo 
+        let minimoNota = 5;
+        let minimoParametro = 3;
+        let maximoNota = 10;
+        let maximoParametro = 18;
+
+        document.getElementById('calculatorForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            // Passo 1 - Pega os números
+            let funcao = {
+                entrada: Number.parseInt(document.getElementById('entrada').value),
+                entrada1: 0,
+                saida: Number.parseInt(document.getElementById('saida').value),
+                saida1: 0,
+            }
+
+            // Validação
+            let erros = [];
+
+            if (funcao.entrada < minimoParametro) {
+                erros.push("Número inválido. O parâmetro deve ser maior que 3");
+                document.getElementById('entrada').classList.add('error');
+                document.getElementById('entradaError').classList.add('show');
+            } else {
+                document.getElementById('entrada').classList.remove('error');
+                document.getElementById('entradaError').classList.remove('show');
+            }
+
+            if (funcao.entrada > maximoParametro) {
+                erros.push("Número inválido. O parâmetro deve ser menor ou igual que 18");
+                document.getElementById('entrada').classList.add('error');
+                document.getElementById('entradaError').classList.add('show');
+            }
+
+            if (funcao.saida < minimoNota) {
+                erros.push("Número inválido. A nota deve ser maior que 5");
+                document.getElementById('saida').classList.add('error');
+                document.getElementById('saidaError').classList.add('show');
+            } else {
+                document.getElementById('saida').classList.remove('error');
+                document.getElementById('saidaError').classList.remove('show');
+            }
+
+            if (funcao.saida > maximoNota) {
+                erros.push("Número inválido. A nota deve ser menor ou igual a 10");
+                document.getElementById('saida').classList.add('error');
+                document.getElementById('saidaError').classList.add('show');
+            }
+
+            if (erros.length > 0) {
+                return;
+            }
+
+            // Passo 2 - Atribuição de valor
+            if (funcao.entrada == 3) {
+                funcao.entrada1 = 6; //X1 é igual a 6
+            }
+            if (funcao.entrada == 5) {
+                funcao.entrada = 5.6666667;
+            }
+            if (funcao.entrada == 6) {
+                funcao.entrada = 6;
+            }
+            if (funcao.entrada == 7) {
+                funcao.entrada = 6.3333333;
+            }
+            if (funcao.entrada == 4) {
+                funcao.entrada = 5.3333333;
+            }
+            if (funcao.entrada == 9) {
+                funcao.entrada = 7;
+            }
+            if (funcao.entrada == 18) {
+                funcao.entrada = 10;
+            }
+
+            // Passo 3 - Cálculo de A
+            let a = (funcao.saida1 - funcao.saida) / (funcao.entrada1 - funcao.entrada);
+
+            // Passo 4 - Cálculo de B
+            let b = funcao.saida - a * funcao.entrada;
+
+            // Passo 5 - Cálculo da função utilizando A e B
+            let calculoFuncao = funcao.entrada * a + b;
+
+            // Exibir resultados
+            document.getElementById('notaFinal').textContent = calculoFuncao.toFixed(2);
+            document.getElementById('valorA').textContent = a.toFixed(4);
+            document.getElementById('valorB').textContent = b.toFixed(4);
+
+            document.getElementById('result').classList.add('show');
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora</title>
+</head>
+
+<body>
+    <script>
+
+    //Definição de mínimo e máximo 
+
+    let minimoNota = 5;
+    let minimoParametro = 3;
+    let maximoNota = 10;
+    let maximoParametro = 18;
+
+    if (minimoNota < 5) {
+        document.write("Número inválido. A nota deve ser maior que 5");
+    }
+    if (minimoParametro < 3) {
+        document.write("Número inválido. O parâmetro deve ser maior que 3");
+    }
+    if(maximoNota > 10) {
+        document.write("Número inválido. A nota deve ser menor ou igual a 10");
+    } if (maximoParametro > 18) {
+        document.write("Número inválido. O parâmetro deve ser menor ou igual que 18");
+    }
+
+    //Passo 1 - Digita os números
+
+        let funçao = {
+            entrada: Number.parseInt(window.prompt("Digite a nota de entrada.")),
+            entrada1: 0,
+            saida: Number.parseInt(window.prompt("Digite a nota de saída.")),
+            saida1: 0,
+        }
+
+    //Passo 2 - Atribuição de valor
+
+        if (funçao.entrada == 3) {
+            funçao.entrada1 = 6; //X1 é igual a 6
+        }
+        if(funçao.entrada == 5) {
+            funçao.entrada = 5.6666667;
+        }
+        if(funçao.entrada == 6) {
+            funçao.entrada = 6;
+        }
+        if(funçao.entrada == 7) {
+            funçao.entrada = 6,3333333;
+        }
+        if(funçao.entrada == 4) {
+            funçao.entrada = 5,3333333;
+        }
+        if(funçao.entrada == 9) {
+            funçao.entrada = 7;
+        }
+        if(funçao.entrada == 18) {
+            funçao.entrada= 10;
+        }
+
+    //Passo 3 - Cálculo de A
+        let a = 
+            (funçao.saida1 - funçao.saida) 
+            / (funçao.entrada1 - funçao.entrada)
+        
+    //Passo 4 - Cálculo de B
+    let b = 
+    funçao.saida - a * funçao.entrada;
+
+    //Passo 5 - Cálculo da função utilizando A e B
+    let calculoFunçao = funçao.entrada * a + b
+    document.write("A nota é de "+calculoFunçao + "<br>");
+    document.write("Valor de A: " + a +"<br>");
+    document.write("Valor de B: " + b + "<br>");
+
+    </script>
+</body>
+
+</html>
